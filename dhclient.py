@@ -1,7 +1,6 @@
 
 import socket
 import random
-from Crypto.Cipher import AES
 import hashlib
 
 
@@ -61,20 +60,19 @@ if __name__=="__main__":
 		exit()	
 
 	mac_s = bytes.fromhex(serverFinishedMessage[9:])
-	print('mac_s ' , mac_s)
-	print('secret' , dh[112:128])
+	#print('mac_s ' , mac_s)
+	#print('secret' , dh[112:128])
 	mac_c =  dh[112:128] + mac_s
-	print('tot ', mac_c)
+	#print('tot ', mac_c)
 	result = hashlib.sha256(mac_c)
-	print('response  ERROR Verification of the clinet MAC failed; expected value was ' + result.hexdigest())
 
 
 	io.write('FINISHED ' + result.hexdigest())
 	io.write("\r\n")
 	io.flush()
-	helloServerMessage = io.readline()
+	dataMessage = io.readline()
 
-	print('response ', helloServerMessage)
+	print('response ', dataMessage)
 
 	s.close()
 
